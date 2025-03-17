@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>roroの部屋</title>
+    <style>
+        body { text-align: center; font-family: Arial, sans-serif; background-color: #f0e6d2; }
+        .scene { position: relative; width: 400px; height: 300px; margin: auto; }
+        .room { background: url('room_day.png') no-repeat center/cover; }
+        .garden { background: url('room_garden.png') no-repeat center/cover; }
+        .roro { position: absolute; width: 100px; transition: transform 1s; left: 150px; bottom: 20px; }
+    </style>
+</head>
+<body>
+    <h1>roroの部屋</h1>
+    <div id="scene" class="scene room" onclick="changeScene(event)">
+        <img src="roro_stand.png" alt="roro" class="roro" id="roro">
+    </div>
+    
+    <script>
+        let isRoom = true;
+        const roro = document.getElementById('roro');
+
+        const roomActions = [
+            'roro_stand.png', 
+            'roro_sit.png', 
+            'roro_jump.gif'
+        ];
+        
+        const gardenActions = [
+            'roro_leaf.png', 
+            'roro_pond.png', 
+            'roro_relax.png'
+        ];
+
+        function changeScene(event) {
+            if (event.clientX > window.innerWidth / 2) {
+                isRoom = !isRoom;
+                document.getElementById('scene').className = `scene ${isRoom ? 'room' : 'garden'}`;
+                changeAction();
+            }
+        }
+
+        function changeAction() {
+            const actions = isRoom ? roomActions : gardenActions;
+            const randomAction = actions[Math.floor(Math.random() * actions.length)];
+            roro.src = randomAction;
+        }
+
+        changeAction();
+    </script>
+</body>
+</html>
